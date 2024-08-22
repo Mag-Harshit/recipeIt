@@ -11,7 +11,7 @@ import {
   onAuthStateChanged,
   User,
 } from "firebase/auth";
-const signUp = () => {
+const SignUp = () => {
   const router = useRouter();
   const [credentials, setCredentials] = useState({
     email: "",
@@ -111,4 +111,4 @@ const signUp = () => {
   );
 };
 
-export default signUp;
+export default SignUp;

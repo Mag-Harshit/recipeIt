@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { eduVIC, Loras } from "@/fonts/font";
 import Link from "next/link";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [credentials, setCredentials] = useState({
     email: "",
@@ -45,6 +45,8 @@ const page = () => {
     }
   }, [user, router]);
   function handleSignIn(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
     signInWithEmailAndPassword(auth, credentials.email, credentials.password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -55,7 +57,6 @@ const page = () => {
         const errorMessage = error.message;
         console.log(errorCode);
       });
-    event.preventDefault();
   }
   return (
     <div>
@@ -107,4 +108,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

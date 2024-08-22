@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 .navBar {
-  @apply text-5xl font-edu font-bold p-3 text-orange-600;
+  @apply text-4xl sm:text-5xl font-edu font-bold p-3 text-orange-600;
 }
 
 .signLoginBtn {

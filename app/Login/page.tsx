@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { eduVIC, Loras } from "@/fonts/font";
 import Link from "next/link";
 
-const Page = () => {
+const Login = () => {
   const router = useRouter();
   const [credentials, setCredentials] = useState({
     email: "",
@@ -108,4 +108,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Login;

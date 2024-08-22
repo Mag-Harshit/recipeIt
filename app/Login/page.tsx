@@ -94,7 +94,7 @@ const Page = () => {
               Log In
             </button>
             <h2>
-              Don't have an account?
+              Don&apos;t have an account?
               <Link href={"/signUp"}>
                 <span className="text-blue-400 underline hover:text-blue-700 ml-1">
                   Sign Up

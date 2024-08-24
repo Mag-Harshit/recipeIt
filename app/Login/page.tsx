@@ -95,7 +95,7 @@ const Login = () => {
             </button>
             <h2>
               Don&apos;t have an account?
-              <Link href={"/signUp"}>
+              <Link href={"/signup"}>
                 <span className="text-blue-400 underline hover:text-blue-700 ml-1">
                   Sign Up
                 </span>

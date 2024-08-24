@@ -78,12 +78,12 @@ const Navbar = () => {
           </div>
         ) : (
           <div className=" flex items-center gap-4">
-            <Link href="/signUp">
+            <Link href="/signup">
               <button className="px-1 py-1 sm:px-3 sm:py-2 border-black w-20 sm:w-28 hover:text-white border-2 hover:bg-blue-400 transition-all rounded-xl">
                 Sign Up
               </button>
             </Link>
-            <Link href={"/Login"}>
+            <Link href={"/login"}>
               <button className="mr-3 px-1 sm:px-3 py-1 sm:py-2 text-white hover:text-black transition-all w-20 sm:w-28 hover:bg-white border-black border-2 rounded-xl bg-blue-400">
                 Log In
               </button>

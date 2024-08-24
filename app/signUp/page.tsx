@@ -11,19 +11,51 @@ import {
   onAuthStateChanged,
   User,
 } from "firebase/auth";
+import axios from "axios";
+
+interface Users {
+  username: string;
+}
+
+// Define the type for the API response
+interface UserResponse {
+  usernames: {
+    rows: Users[];
+  };
+}
+
 const SignUp = () => {
   const router = useRouter();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
+    username: "",
   });
   const [user, setUser] = useState<User | null>(null);
+  const [usernames, setUsernames] = useState<string[]>([]);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         console.log(user);
       }
+
+      async function fetchData() {
+        try {
+          const usernames = await axios.get<UserResponse>(
+            "/api/usernameRetrieve"
+          );
+          const response = usernames.data;
+          const allUsernames = response.usernames.rows.map(
+            (item) => item.username
+          );
+          setUsernames(allUsernames);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      fetchData();
     });
 
     return () => unsubscribe();
@@ -33,8 +65,23 @@ const SignUp = () => {
       router.push("/");
     }
   }, [user, router]);
+  const fetchData = async (uid: string) => {
+    try {
+      await axios.get(
+        "/api/users?uid=" + uid + "&username=" + credentials.username
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (usernames.includes(credentials.username)) {
+      console.log("username taken");
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -45,8 +92,8 @@ const SignUp = () => {
       const user = userCredential.user;
       console.log(user);
 
-      // Set the user state to trigger the useEffect hook
       setUser(user);
+
       router.push("/");
     } catch (error) {
       console.log(error);
@@ -61,12 +108,13 @@ const SignUp = () => {
       [name]: value,
     }));
   };
+
   return (
     <div>
       <div className="flex justify-between items-center">
         <div className={`navBar ${eduVIC}`}>RecipeIt</div>
         <div className="mr-8  ">
-          <Link href={"/Login"}>
+          <Link href={"/login"}>
             <button className="px-3 py-2 text-white hover:text-black transition-all w-28 hover:bg-white border-black border-2 rounded-xl bg-blue-400">
               Log In
             </button>
@@ -80,6 +128,14 @@ const SignUp = () => {
             <h1 className={`text-5xl ${Loras.className}`}>Sign Up</h1>
           </div>
           <div className="flex flex-col gap-3">
+            <input
+              className="signLoginBtn"
+              placeholder="Username"
+              type="text"
+              name="username"
+              onChange={handleCredentialsChange}
+              value={credentials.username}
+            />
             <input
               className="signLoginBtn"
               placeholder="Enter your email"

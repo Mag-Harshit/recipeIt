@@ -57,10 +57,17 @@ const Navbar = () => {
             </button>
             {profileMenu && (
               <div className="absolute right-0 top-full w-full p-3 z-20 rounded-lg bg-gray-100 min-w-[150px] flex flex-col gap-2 justify-center items-start">
-                <h2>Create Post</h2>
-                <div className="border-black border-t-2 text-left w-full hover:text-gray-500">
+                <h2>Profile</h2>
+                <div className="border-black border-t-2 text-left w-full ">
+                  <Link href={"/createRecipe"}>
+                    <button className="mt-2 text-left w-full hover:text-gray-500">
+                      Create Post
+                    </button>
+                  </Link>
+                </div>
+                <div className="border-black border-t-2 text-left w-full ">
                   <button
-                    className="mt-2 text-left w-full"
+                    className="mt-2 text-left w-full hover:text-gray-500"
                     onClick={handleSignOut}
                   >
                     Log Out
